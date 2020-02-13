@@ -1,6 +1,7 @@
 #include "../headers/matrix.h"
 #include <iostream>
 #include <cmath>
+
 Matrix::Matrix(int n,int m)
 {
   this->n = n;
@@ -26,6 +27,7 @@ Matrix operator+(Matrix const &c1,Matrix const &c2)
     }
   return tmp;
 }
+
 Matrix::Matrix(int n,int m,double** values)
 {
   this->n = n;
@@ -40,11 +42,13 @@ Matrix::Matrix(int n,int m,double** values)
         }
     }
 }
+
 Matrix::Matrix()
 {
   this->n = 0;
   this->m = 0;
 }
+
 Matrix::Matrix(const Matrix &other)
 {
   this->n = other.n;
@@ -59,6 +63,7 @@ Matrix::Matrix(const Matrix &other)
         }
     }
 }
+
 void Matrix::print()
 {
   for(int i = 0;i < n;i++)
@@ -70,6 +75,7 @@ void Matrix::print()
       std::cout << std::endl;
     }
 }
+
 Matrix operator*(Matrix const &c1,Matrix const &c2)
 {
   if(c1.m!=c2.m)
@@ -101,6 +107,7 @@ Matrix Matrix::adj()
     }
   return tmp.T();
 }
+
 Matrix Matrix::inv()
 {
   return this->adj()*(1/this->det());
@@ -118,6 +125,7 @@ Matrix operator+(Matrix const &c1,double const &c2)
     }
   return tmp;
 }
+
 Matrix operator*(Matrix const &c1,double const &c2)
 {
   
@@ -131,6 +139,7 @@ Matrix operator*(Matrix const &c1,double const &c2)
     }
   return tmp;
 }
+
 double Matrix::det()
 {
   if(n != m)
@@ -144,6 +153,7 @@ double Matrix::det()
     }
   return sum;
 }
+
 Matrix Matrix::krovcic(int x,int y)
 {
   if(this->n == 1 || this->m == 1)
@@ -173,4 +183,25 @@ Matrix Matrix::T()
         }
     }
   return tmp;
+}
+
+
+const Matrix& Matrix::operator=(const Matrix &t)
+{
+  if(&t == this) return *this;
+  for (int i = 0; i < n; ++i)
+    delete [] values[i];
+  delete [] values;
+  this->n = t.n;
+  this->m = t.m;
+  this->values = new double*[n];
+  for(int i = 0;i < n;i++)
+    {
+          this->values[i] = new double[m];
+      for(int j = 0;j < m;j++)
+        {
+          this->values[i][j] = t.values[i][j];
+        }
+    }
+  return *this;
 }

@@ -10,6 +10,7 @@ public:
   double det();
   Matrix T();
   Matrix krovcic(int i,int j);
+  const Matrix& operator=(const Matrix &t);
   friend Matrix operator+(Matrix const &,Matrix const &);
   friend Matrix operator*(Matrix const &,Matrix const &);
   friend Matrix operator*(Matrix const &,double const &);
@@ -28,5 +29,4 @@ public:
 protected:
   int n,m;
   double **values;
-private:
 };

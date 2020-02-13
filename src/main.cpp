@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../headers/matrix.h"
+#include "../headers/vector.h"
 using namespace std;
 
 int main()
@@ -7,19 +7,16 @@ int main()
   int n,m;
   n = 2;
   m = 2;
-  double **val;
-  val = new double*[n];
+  double *val;
+  val = new double[n];
   for(int i = 0;i<n;i++)
   {
-    val[i] = new double[m];
-    for(int j = 0;j<m;j++)
-    {
-      val[i][j] = i*n+j;
-    }
+    val[i] = i;
   }
-  Matrix a(n,m,val);
+  Vector a(n,val);
+  Vector b = a.T();
   a.print();
-  cout << endl;
-  a.adj().print();
-  cout << a.det();
+  a = a.T();
+  a.print();
+  b.print();
 }
